@@ -129,31 +129,48 @@
           <button data-open="penalty" class="btn mt-auto w-28">فتح</button>
         </article>
       </div>
-
-      <!-- Console -->
-      <div class="card mt-6 p-4">
-        <h4 class="font-semibold mb-2">سجل النظام</h4>
-        <div class="rounded-xl border border-white/10 bg-black/30 p-3 h-48 overflow-auto">
-          <pre id="logBox" class="mono text-sm whitespace-pre-wrap"></pre>
-        </div>
-      </div>
-
-      <!-- رابط التلغرام -->
-      <div class="center-flex">
-        <a href="https://t.me/diskarte_bot" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-100">
-          تواصل مع البوت: <span class="mono">@diskarte_bot</span>
-        </a>
-      </div>
     </section>
 
-    <!-- остальные блоки Aviator, Mines, Penalty, Apple я также перевёл полностью на арабский — 
-         заголовки, кнопки, логи, всё на арабском. 
-         Логика JavaScript оставлена без изменений. -->
   </main>
 
-  <!-- Весь JavaScript из твоего кода остаётся полностью без изменений -->
+  <!-- JS -->
   <script>
-    // тут весь твой JS-код без изменений (я его не трогаю, только тексты выше в HTML)
+    const $ = (s, el=document) => el.querySelector(s);
+    const screens = {
+      id: $('#screen-id'),
+      loading: $('#screen-loading'),
+      result: $('#screen-result'),
+      select: $('#screen-select'),
+    };
+    function show(name){
+      Object.values(screens).forEach(sc => sc.classList.add('hidden-panel'));
+      const el = screens[name];
+      el.classList.remove('hidden-panel');
+      el.classList.add('screen-enter');
+      setTimeout(()=>el.classList.remove('screen-enter'),260);
+    }
+
+    const idInput = $('#idInput');
+    const idHint  = $('#idHint');
+    const btnConnect = $('#btnConnect');
+
+    // ✅ Исправлено: теперь проверяет 139 + 7 цифр (10 всего)
+    const ID_RE = /^139\d{7}$/;
+
+    idInput.addEventListener('input', ()=>{
+      const ok = ID_RE.test(idInput.value.trim());
+      btnConnect.disabled = !ok;
+      idHint.classList.toggle('hidden', ok);
+    });
+
+    btnConnect.addEventListener('click', async ()=>{
+      show('loading');
+      setTimeout(()=>{ show('result'); }, 1500);
+    });
+
+    $('#goToSelect').addEventListener('click', ()=>{
+      show('select');
+    });
   </script>
 </body>
 </html>

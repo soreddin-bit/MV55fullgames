@@ -8,17 +8,19 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
   <style>
+    /* --- Next-gen / neon vibes --- */
     :root{
       --bg:#0b0f14;
       --card:#0f1520;
       --line:rgba(255,255,255,.08);
-      --neon:#60f7a2;
-      --neon2:#7c7cff;
+      --neon:#60f7a2;       /* emerald neon */
+      --neon2:#7c7cff;      /* violet */
       --muted:#94a3b8;
     }
     body{background:radial-gradient(1200px 600px at 20% -10%,rgba(124,124,255,.12),transparent),
                      radial-gradient(1000px 600px at 120% 10%,rgba(96,247,162,.12),transparent),
                      var(--bg);}
+
     .logo { letter-spacing:.06em; }
     .card { background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
             border:1px solid var(--line); border-radius:14px; backdrop-filter: blur(6px); }
@@ -27,10 +29,14 @@
     .btn:hover { box-shadow:0 0 0 3px rgba(96,247,162,.12), 0 0 24px rgba(96,247,162,.35) inset; }
     .btn-ghost { border:1px solid rgba(124,124,255,.35); background:rgba(124,124,255,.07); color:#EAEAFE; }
     .chip { border:1px solid rgba(96,247,162,.45); background:rgba(96,247,162,.12); color:#bdfdd6; }
+
+    /* Screens show/hide */
     .hidden-panel{display:none}
     .screen-enter{animation:fadeIn .25s ease both, scaleIn .25s ease both}
     @keyframes fadeIn{from{opacity:0}to{opacity:1}}
     @keyframes scaleIn{from{transform:scale(.98)}to{transform:scale(1)}}
+
+    /* Mini neon loader (1.5s) */
     .loader-bar{position:relative;height:8px;border-radius:9999px;overflow:hidden;
       background:linear-gradient(90deg, rgba(124,124,255,.25), rgba(96,247,162,.25));
       border:1px solid var(--line)}
@@ -38,13 +44,20 @@
       background:linear-gradient(90deg, transparent, rgba(124,124,255,.9), rgba(96,247,162,.9), transparent);
       animation:scan 1.5s linear forwards}
     @keyframes scan{to{transform:translateX(100%)}}
+
+    /* Console mono */
     .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+
+    /* Grids */
     .cell{display:flex;align-items:center;justify-content:center; border:1px solid var(--line);
       border-radius:12px;background:rgba(255,255,255,.02); transition:.15s}
     .cell:hover{box-shadow:0 0 0 3px rgba(124,124,255,.12) inset}
+    /* Mobile-friendly cell sizing */
     .cell-sm{ width:42px; height:42px; }
     @media (min-width: 420px){ .cell-sm{ width:48px; height:48px; } }
     @media (min-width: 768px){ .cell-sm{ width:56px; height:56px; } }
+
+    /* Center helpers */
     .center-flex{display:flex; align-items:center; justify-content:center;}
   </style>
 </head>
@@ -54,14 +67,16 @@
   <header class="sticky top-0 z-30 backdrop-filter backdrop-blur bg-black bg-opacity-40 border-b border-white/5">
     <div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
       <div class="flex items-center gap-3">
+        <!-- Logo image -->
         <img src="assets/logo.png" alt="Brahim HackBot Logo" class="h-9 w-auto">
+        <!-- Brand text -->
         <div class="flex flex-col leading-tight">
           <span class="text-indigo-300 font-semibold text-lg">Brahim</span>
           <span class="text-green-300 text-sm tracking-wide">HACK BOT</span>
         </div>
       </div>
       <nav class="hidden sm:flex gap-6 text-sm text-gray-400">
-        <a href="#id" class="hover:text-gray-200">المعرف</a>
+        <a href="#id" class="hover:text-gray-200">المعرّف</a>
         <a href="#connect" class="hover:text-gray-200">الاتصال</a>
         <a href="#games" class="hover:text-gray-200">الألعاب</a>
       </nav>
@@ -70,30 +85,30 @@
 
   <main class="max-w-6xl mx-auto px-4 pt-6 pb-28">
 
-    <!-- شاشة إدخال المعرف -->
+    <!-- ===================== Screen: ID ===================== -->
     <section id="screen-id" class="screen-enter">
       <div class="card p-6 md:p-8">
-        <h1 class="text-2xl font-semibold mb-2">أدخل معرف 1xBET</h1>
-        <p class="text-slate-400 mb-6">أدخل 10 أرقام تبدأ بـ <b>139</b>.</p> 
+        <h1 class="text-2xl font-semibold mb-2">أدخل معرّف 1xBET الخاص بك</h1>
+        <p class="text-slate-400 mb-6">أدخل بالضبط 10 أرقام تبدأ بـ <b>139</b>.</p>
         <div class="flex flex-col sm:flex-row gap-3">
           <input id="idInput" inputmode="numeric" maxlength="10" placeholder="139XXXXXXX"
                  class="w-full bg-slate-900 text-slate-100 placeholder-slate-500 border border-white/10 rounded-lg px-4 py-3 tracking-widest text-lg outline-none focus:ring-2 focus:ring-emerald-400/40" />
           <button id="btnConnect" class="btn text-lg sm:w-40" disabled>اتصال</button>
         </div>
-        <p id="idHint" class="text-rose-400 text-sm mt-3 hidden">المعرف يجب أن يبدأ بـ 139 ويتكون من 10 أرقام.</p>
+        <p id="idHint" class="text-rose-400 text-sm mt-3 hidden">يجب أن يبدأ المعرّف بـ 139 وأن يتكوّن من 10 أرقام.</p>
       </div>
     </section>
 
-    <!-- شاشة التحميل -->
+    <!-- ===================== Screen: Loading ===================== -->
     <section id="screen-loading" class="hidden-panel">
       <div class="card p-6 md:p-8">
-        <h2 class="text-xl font-semibold mb-4">جاري التحقق من الحساب…</h2>
+        <h2 class="text-xl font-semibold mb-4">جارٍ التحقق من الحساب…</h2>
         <div class="loader-bar mb-3"></div>
         <div class="mono text-slate-400" id="loaderConsole"></div>
       </div>
     </section>
 
-    <!-- شاشة النتيجة -->
+    <!-- ===================== Screen: Result ===================== -->
     <section id="screen-result" class="hidden-panel">
       <div class="card p-6 md:p-8">
         <h2 class="text-2xl font-semibold mb-4">نتيجة التحقق</h2>
@@ -105,43 +120,203 @@
       </div>
     </section>
 
-    <!-- شاشة اختيار اللعبة -->
+    <!-- ===================== Screen: Game Select ===================== -->
     <section id="screen-select" class="hidden-panel">
       <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Apple Game Card -->
         <article class="card p-6 flex flex-col">
           <h3 class="text-xl font-semibold mb-1">لعبة التفاحة</h3>
           <p class="text-slate-400 mb-4">🍎 شبكة 10×5 مع تفاح فاسد.</p>
           <button data-open="apple" class="btn mt-auto w-28">فتح</button>
         </article>
+        <!-- Aviator Card -->
         <article class="card p-6 flex flex-col">
           <h3 class="text-xl font-semibold mb-1">Aviator</h3>
-          <p class="text-slate-400 mb-4">لعبة تحطم بتوقع واحد.</p>
+          <p class="text-slate-400 mb-4">لعبة تحطّم مع توقع واحد.</p>
           <button data-open="aviator" class="btn mt-auto w-28">فتح</button>
         </article>
+        <!-- Mines Card -->
         <article class="card p-6 flex flex-col">
           <h3 class="text-xl font-semibold mb-1">الألغام</h3>
-          <p class="text-slate-400 mb-4">💥 شبكة 5×5 مع ألغام.</p>
+          <p class="text-slate-400 mb-4">💥 شبكة 5×5 مع ألغام محددة.</p>
           <button data-open="mines" class="btn mt-auto w-28">فتح</button>
         </article>
+        <!-- Penalty Card -->
         <article class="card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-1">الركلة الترجيحية</h3>
-          <p class="text-slate-400 mb-4">⚽️ هدف 4×6 مع تحديد الهدف.</p>
+          <h3 class="text-xl font-semibold mb-1">الركلات الترجيحية</h3>
+          <p class="text-slate-400 mb-4">⚽️ مرمى 4×6 مع هدف محدد.</p>
           <button data-open="penalty" class="btn mt-auto w-28">فتح</button>
         </article>
+      </div>
+
+      <!-- Console -->
+      <div class="card mt-6 p-4">
+        <h4 class="font-semibold mb-2">سجلّ النظام</h4>
+        <div class="rounded-xl border border-white/10 bg-black/30 p-3 h-48 overflow-auto">
+          <pre id="logBox" class="mono text-sm whitespace-pre-wrap"></pre>
+        </div>
+      </div>
+
+      <!-- Telegram banner -->
+      <div class="center-flex">
+        <a href="https://t.me/diskarte_bot" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-100">
+          تواصل مع البوت: <span class="mono">@diskarte_bot</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===================== Screen: Aviator ===================== -->
+    <section id="screen-aviator" class="hidden-panel">
+      <div class="card p-6 md:p-8">
+        <div class="flex items-center justify-between">
+          <h3 class="text-2xl font-semibold">Aviator — التوقع</h3>
+          <button data-back class="btn-ghost px-4">رجوع</button>
+        </div>
+
+        <div class="mt-6 flex flex-col sm:flex-row sm:items-center gap-3">
+          <button id="aviatorBtn" class="btn w-44">خذ التوقع</button>
+        </div>
+
+        <!-- Loader + Output -->
+        <div class="mt-8 center-flex">
+          <div class="text-5xl select-none">✈️</div>
+        </div>
+        <div class="mt-3 center-flex">
+          <div id="aviatorChip" class="chip rounded-full px-5 py-2 text-2xl font-bold">–</div>
+        </div>
+
+        <!-- Console -->
+        <div class="card mt-8 p-4">
+          <h4 class="font-semibold mb-2">سجلّ النظام</h4>
+          <div class="rounded-xl border border-white/10 bg-black/30 p-3 h-48 overflow-auto">
+            <pre id="logBoxA" class="mono text-sm whitespace-pre-wrap"></pre>
+          </div>
+        </div>
+
+        <div class="center-flex">
+          <a href="https://t.me/diskarte_bot" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-100">
+            تواصل مع البوت: <span class="mono">@diskarte_bot</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Screen: Mines ===================== -->
+    <section id="screen-mines" class="hidden-panel">
+      <div class="card p-6 md:p-8">
+        <div class="flex items-center justify-between">
+          <h3 class="text-2xl font-semibold">الألغام — التوقع</h3>
+          <button data-back class="btn-ghost px-4">رجوع</button>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <label class="text-slate-300">عدد الألغام:</label>
+          <select id="minesCount" class="bg-slate-900 border border-white/10 rounded-lg px-3 py-2"></select>
+          <button id="minesBtn" class="btn">خذ التوقع</button>
+          <button id="minesRegen" class="btn-ghost">إعادة</button>
+        </div>
+
+        <!-- Grid centered -->
+        <div class="mt-6 center-flex">
+          <div id="minesGrid" class="grid grid-cols-5 gap-3"></div>
+        </div>
+
+        <!-- Console -->
+        <div class="card mt-8 p-4">
+          <h4 class="font-semibold mb-2">سجلّ النظام</h4>
+          <div class="rounded-xl border border-white/10 bg-black/30 p-3 h-48 overflow-auto">
+            <pre id="logBoxM" class="mono text-sm whitespace-pre-wrap"></pre>
+          </div>
+        </div>
+
+        <div class="center-flex">
+          <a href="https://t.me/diskarte_bot" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-100">
+            تواصل مع البوت: <span class="mono">@diskarte_bot</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Screen: Penalty ===================== -->
+    <section id="screen-penalty" class="hidden-panel">
+      <div class="card p-6 md:p-8">
+        <div class="flex items-center justify-between">
+          <h3 class="text-2xl font-semibold">الركلات الترجيحية — التوقع</h3>
+          <button data-back class="btn-ghost px-4">رجوع</button>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <button id="penaltyBtn" class="btn">خذ التوقع</button>
+          <button id="penaltyRegen" class="btn-ghost">إعادة</button>
+        </div>
+
+        <!-- Goal 4x6 centered -->
+        <div class="mt-6 center-flex">
+          <div id="penaltyGrid" class="grid grid-cols-6 gap-3"></div>
+        </div>
+
+        <!-- Console -->
+        <div class="card mt-8 p-4">
+          <h4 class="font-semibold mb-2">سجلّ النظام</h4>
+          <div class="rounded-xl border border-white/10 bg-black/30 p-3 h-48 overflow-auto">
+            <pre id="logBoxP" class="mono text-sm whitespace-pre-wrap"></pre>
+          </div>
+        </div>
+
+        <div class="center-flex">
+          <a href="https://t.me/diskarte_bot" target="_blank" class="mt-4 inline-flex items-center gap-2 text-sm text-cyan-300 hover:text-cyan-100">
+            تواصل مع البوت: <span class="mono">@diskarte_bot</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Screen: Apple ===================== -->
+    <section id="screen-apple" class="hidden-panel">
+      <div class="card p-6 md:p-8">
+        <div class="flex items-center justify-between">
+          <h3 class="text-2xl font-semibold">لعبة التفاحة — التوقع</h3>
+          <button data-back class="btn-ghost px-4">رجوع</button>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <button id="appleBtn" class="btn">خذ التوقع</button>
+          <button id="appleRegen" class="btn-ghost">إعادة</button>
+        </div>
+
+        <!-- Grid 10x5 centered -->
+        <div class="mt-6 center-flex">
+          <div id="appleGrid" class="grid grid-cols-5 gap-3"></div>
+        </div>
+
+        <!-- Console -->
+        <div class="card mt-8 p-4">
+          <h4 class="font-semibold mb-2">سجلّ النظام</h4>
+          <div class="rounded-xl border border-white/10 bg-black/30 p-3 h-48 overflow-auto">
+            <pre id="logBoxApple" class="mono text-sm whitespace-pre-wrap"></pre>
+          </div>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <!-- JS -->
   <script>
-    const $ = (s, el=document) => el.querySelector(s);
+    // ------------------ Helpers ------------------
+    const $  = (s, el=document) => el.querySelector(s);
+    const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+
     const screens = {
       id: $('#screen-id'),
       loading: $('#screen-loading'),
       result: $('#screen-result'),
       select: $('#screen-select'),
+      aviator: $('#screen-aviator'),
+      mines: $('#screen-mines'),
+      penalty: $('#screen-penalty'),
+      apple: $('#screen-apple'),
     };
+
     function show(name){
       Object.values(screens).forEach(sc => sc.classList.add('hidden-panel'));
       const el = screens[name];
@@ -149,12 +324,41 @@
       el.classList.add('screen-enter');
       setTimeout(()=>el.classList.remove('screen-enter'),260);
     }
+    function ts(){
+      const d=new Date();
+      const pad=n=>String(n).padStart(2,'0');
+      return `[${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}]`;
+    }
+    function logTo(box, msg){
+      const el = typeof box==='string' ? $(box) : box;
+      el.textContent += `${ts()} ${msg}\n`;
+      el.parentElement.scrollTop = el.parentElement.scrollHeight;
+    }
 
+    // Sequence loader 1.5s -> returns Promise resolved after steps
+    function stepLoader(stepBox, globalBox){
+      if(stepBox){ stepBox.textContent = ''; }
+      logTo(globalBox, 'جارٍ التحضير…');
+      if(stepBox) stepBox.textContent += 'جارٍ التحضير…\n';
+      return new Promise(res=>{
+        setTimeout(()=>{
+          logTo(globalBox, 'جارٍ التحميل…');
+          if(stepBox) stepBox.textContent += 'جارٍ التحميل…\n';
+          setTimeout(()=>{
+            logTo(globalBox, 'جارٍ الحساب…');
+            if(stepBox) stepBox.textContent += 'جارٍ الحساب…\n';
+            setTimeout(res, 500);
+          }, 500);
+        }, 500);
+      });
+    }
+
+    // ------------------ ID flow ------------------
     const idInput = $('#idInput');
     const idHint  = $('#idHint');
     const btnConnect = $('#btnConnect');
 
-    // ✅ Исправлено: теперь проверяет 139 + 7 цифр (10 всего)
+    // ✅ 139 + 7 أرقام = 10 خانات
     const ID_RE = /^139\d{7}$/;
 
     idInput.addEventListener('input', ()=>{
@@ -165,12 +369,225 @@
 
     btnConnect.addEventListener('click', async ()=>{
       show('loading');
-      setTimeout(()=>{ show('result'); }, 1500);
+      await stepLoader($('#loaderConsole'), $('#logBox'));
+      show('result');
     });
 
     $('#goToSelect').addEventListener('click', ()=>{
       show('select');
+      logTo('#logBox', 'تم الدخول إلى شاشة اختيار الألعاب');
     });
+
+    // ------------------ Aviator ------------------
+    const aviatorBtn  = $('#aviatorBtn');
+    const aviatorChip = $('#aviatorChip');
+    const logA = $('#logBoxA');
+
+    $$('[data-open="aviator"]').forEach(b=>{
+      b.addEventListener('click', ()=>{ show('aviator'); });
+    });
+    $$('[data-back]').forEach(b=>{
+      b.addEventListener('click', ()=>{ show('select'); });
+    });
+
+    function rand(min,max,dec=2){
+      return (Math.random()*(max-min)+min).toFixed(dec);
+    }
+    function biasedPrediction(){
+      // 0.5% احتمال > 5.00
+      if(Math.random()<0.005) return rand(5.01,40.00);
+      return rand(0.00,5.00);
+    }
+
+    aviatorBtn.addEventListener('click', async ()=>{
+      const host = $('#screen-aviator');
+      const bar = document.createElement('div');
+      bar.className='loader-bar mt-6';
+      host.insertBefore(bar, host.children[2]); // after header row
+      await stepLoader(null, logA);
+      bar.remove();
+
+      const val = biasedPrediction();
+      aviatorChip.textContent = val;
+      logTo(logA, `Aviator: التوقع ${val}`);
+    });
+
+    // ------------------ Mines ------------------
+    const logM = $('#logBoxM');
+    const minesGrid = $('#minesGrid');
+    const minesBtn = $('#minesBtn');
+    const minesRegen = $('#minesRegen');
+    const minesCountSel = $('#minesCount');
+
+    // fill select 1..10
+    for(let i=1;i<=10;i++){
+      const o=document.createElement('option'); o.value=o.textContent=i;
+      if(i===3) o.selected=true;
+      minesCountSel.appendChild(o);
+    }
+
+    // build 5x5 grid (responsive cell size)
+    const cellsM=[];
+    function buildMinesGrid(){
+      minesGrid.innerHTML='';
+      cellsM.length=0;
+      for(let i=0;i<25;i++){
+        const d=document.createElement('div');
+        d.className='cell cell-sm text-xl select-none';
+        minesGrid.appendChild(d);
+        cellsM.push(d);
+      }
+    }
+    buildMinesGrid();
+
+    function minesGen(n){
+      cellsM.forEach(c=>c.textContent='');
+      const taken=new Set();
+      while(taken.size<n){
+        const ix=Math.floor(Math.random()*25);
+        if(!taken.has(ix)) taken.add(ix);
+      }
+      const coords=[];
+      [...taken].forEach(ix=>{
+        cellsM[ix].textContent='💥';
+        const r=Math.floor(ix/5)+1;
+        const c=(ix%5)+1;
+        coords.push(`(${r},${c})`);
+      });
+      return coords;
+    }
+
+    async function runMines(){
+      const host = $('#screen-mines');
+      const bar = document.createElement('div');
+      bar.className='loader-bar mt-4';
+      host.insertBefore(bar, host.children[2]); // after toolbar
+      await stepLoader(null, logM);
+      bar.remove();
+
+      const n=Number(minesCountSel.value);
+      const coords = minesGen(n);
+      logTo(logM, `Mines: عدد ${n} من الألغام عند ${coords.join(', ')}`);
+    }
+
+    $$('[data-open="mines"]').forEach(b=>{
+      b.addEventListener('click', ()=>{ show('mines'); });
+    });
+    minesBtn.addEventListener('click', runMines);
+    minesRegen.addEventListener('click', runMines);
+
+    // ------------------ Penalty ------------------
+    const logP = $('#logBoxP');
+    const penaltyGrid = $('#penaltyGrid');
+    const penaltyBtn = $('#penaltyBtn');
+    const penaltyRegen = $('#penaltyRegen');
+
+    const pCells=[];
+    function buildPenaltyGrid(){
+      penaltyGrid.innerHTML='';
+      pCells.length=0;
+      for(let i=0;i<24;i++){
+        const d=document.createElement('div');
+        d.className='cell cell-sm text-xl select-none';
+        penaltyGrid.appendChild(d);
+        pCells.push(d);
+      }
+    }
+    buildPenaltyGrid();
+
+    function penaltyGen(){
+      pCells.forEach(c=>c.textContent='');
+      const idx=Math.floor(Math.random()*24);
+      pCells[idx].textContent='⚽️';
+      const row = Math.floor(idx/6)+1;
+      const col = (idx%6)+1;
+      return {row,col};
+    }
+
+    async function runPenalty(){
+      const host = $('#screen-penalty');
+      const bar = document.createElement('div');
+      bar.className='loader-bar mt-4';
+      host.insertBefore(bar, host.children[2]); // after toolbar
+      await stepLoader(null, logP);
+      bar.remove();
+
+      const {row,col}=penaltyGen();
+      logTo(logP, `Penalty: الهدف (صف ${row}، عمود ${col})`);
+    }
+
+    $$('[data-open="penalty"]').forEach(b=>{
+      b.addEventListener('click', ()=>{ show('penalty'); });
+    });
+    penaltyBtn.addEventListener('click', runPenalty);
+    penaltyRegen.addEventListener('click', runPenalty);
+
+    // ------------------ Apple Game ------------------
+    const grid = document.getElementById("appleGrid");
+    const takeBtn = document.getElementById("appleBtn");
+    const retryBtn = document.getElementById("appleRegen");
+
+    let currentRow = 0; // تتبّع الصف الحالي
+    const totalRows = 10; // 10 صفوف
+    const cols = 5;
+
+    // فتح شاشة Apple
+    $$('[data-open="apple"]').forEach(b=>{
+      b.addEventListener('click', ()=>{ show('apple'); });
+    });
+
+    // إنشاء شبكة فارغة
+    function initGrid() {
+      grid.innerHTML = "";
+      for (let r = 0; r < totalRows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const cell = document.createElement("div");
+          cell.className = "cell cell-sm text-xl select-none border border-gray-400 flex items-center justify-center";
+          cell.dataset.row = r;
+          cell.dataset.col = c;
+          grid.appendChild(cell);
+        }
+      }
+      currentRow = 0;
+    }
+
+    // توليد صف بالتفاح الفاسد/الجيد
+    function revealRow(row) {
+      const cells = Array.from(grid.querySelectorAll(`[data-row='${row}']`));
+      let rottenCount = 1;
+
+      if (row >= 4 && row <= 6) rottenCount = 2;
+      else if (row >= 7 && row <= 8) rottenCount = 3;
+      else if (row === 9) rottenCount = 4;
+
+      const rottenIndexes = [];
+      while (rottenIndexes.length < rottenCount) {
+        const idx = Math.floor(Math.random() * cols);
+        if (!rottenIndexes.includes(idx)) rottenIndexes.push(idx);
+      }
+
+      cells.forEach((cell, i) => {
+        cell.textContent = rottenIndexes.includes(i) ? "💀" : "🍏";
+      });
+    }
+
+    // أحداث الأزرار
+    if (takeBtn) {
+      takeBtn.addEventListener("click", () => {
+        if (currentRow < totalRows) {
+          revealRow(currentRow);
+          currentRow++;
+        }
+      });
+    }
+    if (retryBtn) {
+      retryBtn.addEventListener("click", () => {
+        initGrid();
+      });
+    }
+
+    // تهيئة أولية
+    initGrid();
   </script>
 </body>
 </html>
